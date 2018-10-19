@@ -1,0 +1,19 @@
+package partie1;
+
+public class Main {
+
+	public static void main(String[] args) {
+		//Tests
+		Cle c1 = new Cle(0,1,1,1);
+		Cle c2 = new Cle(1,0,0,0);
+		Cle c3 = new Cle(0,1,1,1);
+		System.out.println("Clé c1 : ["+c1.getSousCle(0)+","+c1.getSousCle(1)+","+c1.getSousCle(2)+","+c1.getSousCle(3)+"]");
+		System.out.println("Clé c2 : ["+c2.getSousCle(0)+","+c2.getSousCle(1)+","+c2.getSousCle(2)+","+c2.getSousCle(3)+"]");
+		System.out.println("Clé c3 : ["+c3.getSousCle(0)+","+c3.getSousCle(1)+","+c3.getSousCle(2)+","+c3.getSousCle(3)+"]");
+		System.out.println("Les clés c1 et c2 sont égales ? "+Exo1.eg(c1, c2));
+		System.out.println("Les clés c1 et c3 sont égales ? "+Exo1.eg(c1, c3));
+		System.out.println("La clé c2 est inférieure à la clé c1 ? "+Exo1.inf(c2, c1));
+		System.out.println("La clé c1 est inférieure à la clé c2 ? "+Exo1.inf(c1, c2));
+	}
+
+}
