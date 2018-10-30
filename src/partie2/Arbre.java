@@ -86,7 +86,7 @@ public class Arbre {
 			pere.setFilsD(null);
 		}
 		//on refait descendre le noeud pour equilibrer l'arbre
-		System.out.println("la racine est "+last.getCle().toString());
+		//System.out.println("la racine est "+last.getCle().toString());
 		racine = last;
 		last.redescente();
 		nbElem--;
@@ -113,14 +113,16 @@ public class Arbre {
 		int size = listNode.size();
 		//deuxième parcours pour faire les relations de parentés entre les noeuds
 		for(int i = 0;i<size;i++) {
+			System.out.println(listNode.get(i).getCle().toString());
 			if(((i*2)+1)<size)
 				listNode.get(i).setFilsG(listNode.get((i*2)+1));
 			if(((i*2)+2)<size)
 			listNode.get(i).setFilsD(listNode.get((i*2)+2));
 			listNode.get(i).setPere(listNode.get((i-1)/2));
 		}
-		Noeud racine = listNode.get(0);
-		return new Arbre(racine,listNode.size());
+		Noeud racine2 = listNode.get(0);
+		ParcoursPrefixeRedescente(racine2);
+		return new Arbre(racine2,listNode.size());
 	}
 	
 	public Arbre Union(Arbre a1, Arbre a2) {// Union en O(n + m)
@@ -128,9 +130,9 @@ public class Arbre {
 		ArrayList<Cle> la2 = ParcoursPrefixe(a2.getRacine());
 		ArrayList<Cle> la = new ArrayList<Cle>(la1);
 		la.addAll(la2);
-		System.out.println(la.toString());
 		Arbre a = ConsIter(la);
-		ParcoursPrefixeRedescente(a.getRacine());
+		System.out.println(a.toString());
+		//ParcoursPrefixeRedescente(a.getRacine());
 		return a;
 	}
 

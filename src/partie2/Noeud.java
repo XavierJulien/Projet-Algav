@@ -37,17 +37,17 @@ public class Noeud {
 	
 
 	public void redescente() {//algorithme r�cursif qui �change les cl�s vers le bas tant qu'on as un fils plus petit que soit
-		System.out.println("l'element en cours est "+c.toString());
+		//System.out.println("l'element en cours est "+c.toString());
 		if(filsD == null) {
-			System.out.println("On cherche a remplacer le filsG "+filsG.getCle().toString());
+			//System.out.println("On cherche a remplacer le filsG "+filsG.getCle().toString());
 			Cle current = c;
 			Cle cFilsG = filsG.getCle();
 			if(cFilsG.inf(current)) {
 				Cle temp = current;
 				c = cFilsG;
 				filsG.setC(temp);
-				System.out.println("mon nouveau current :"+c.toString());
-				System.out.println("mon nouveau filsG"+filsG.getCle().toString());
+				//System.out.println("mon nouveau current :"+c.toString());
+				//System.out.println("mon nouveau filsG"+filsG.getCle().toString());
 			}
 		}else {
 			Cle current = c;
@@ -55,24 +55,24 @@ public class Noeud {
 			Cle cFilsD = filsD.getCle();
 			if(cFilsG.inf(cFilsD)) {
 				if(cFilsG.inf(current)) {
-					System.out.println("On cherche a remplacer le filsG "+filsG.getCle().toString());
+					//System.out.println("On cherche a remplacer le filsG "+filsG.getCle().toString());
 					Cle temp = current;
 					c = cFilsG;
 					filsG.setC(temp);
 					if(filsG != null)
-						System.out.println("mon nouveau current :"+c.toString());
-						System.out.println("mon nouveau filsG"+filsG.getCle().toString());
+						//System.out.println("mon nouveau current :"+c.toString());
+						//System.out.println("mon nouveau filsG"+filsG.getCle().toString());
 						filsG.redescente();
 				}
 			}else {
 				if(cFilsD.inf(current)) {
-					System.out.println("On echange avec le filsD "+filsD.getCle().toString());
+					//System.out.println("On echange avec le filsD "+filsD.getCle().toString());
 					Cle temp = current;
 					c = cFilsD;
 					filsD.setC(temp);
 					if(filsD != null)
-						System.out.println("mon nouveau current :"+c.toString());
-						System.out.println("mon nouveau filsD"+filsD.getCle().toString());
+						//System.out.println("mon nouveau current :"+c.toString());
+						//System.out.println("mon nouveau filsD"+filsD.getCle().toString());
 						filsD.redescente();
 				}
 			}

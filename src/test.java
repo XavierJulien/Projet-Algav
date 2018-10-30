@@ -41,14 +41,15 @@ public class test {
 		// a.Ajout(new Cle(1,0,0,0));
 		
 		// Check ConsIter
-		ArrayList<Cle> lc = new ArrayList<Cle>();
-		lc.add(c1);
-		lc.add(c2);
-		lc.add(c3);
-		Arbre a2 = new Arbre().ConsIter(lc);
-		System.out.println(a2.toString());
-		//Arbre a2= new Arbre(new Noeud(new Cle(1,0,0,0),null,null,null),1);
-		//Arbre b = a.Union(a, a2);
+		//ArrayList<Cle> lc = new ArrayList<Cle>();
+		//lc.add(c1);
+		//lc.add(c2);
+		//lc.add(c3);
+		//Arbre a2 = new Arbre().ConsIter(lc);
+		//System.out.println(a2.toString());
+		Arbre a2= new Arbre(new Noeud(new Cle(1,0,0,0),null,null,null),1);
+		Arbre b = a.Union(a, a2);
+		System.out.println(b.toString());
 	}
 
 }
