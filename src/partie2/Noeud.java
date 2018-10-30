@@ -16,6 +16,13 @@ public class Noeud {
 		this.filsD = filsD;
 	}
 	
+	public Noeud(Cle c) {
+		this.c = c;
+		pere = null;
+		filsG = null;
+		filsD = null;
+	}
+	
 	public Cle getCle() {return c;}
 	
 	public Noeud getPere() {return pere;}
@@ -26,8 +33,10 @@ public class Noeud {
 	public void setFilsD(Noeud filsD) {this.filsD = filsD;}
 	public void setPere(Noeud pere) {this.pere = pere;}
 	public void setC(Cle temp) {c = temp;}
+	
+	
 
-	public void redescente() {//algorithme récursif qui échange les clés vers le bas tant qu'on as un fils plus petit que soit
+	public void redescente() {//algorithme rï¿½cursif qui ï¿½change les clï¿½s vers le bas tant qu'on as un fils plus petit que soit
 		System.out.println("l'element en cours est "+c.toString());
 		if(filsD == null) {
 			System.out.println("On cherche a remplacer le filsG "+filsG.getCle().toString());
@@ -70,5 +79,18 @@ public class Noeud {
 		}
 	}
 
-	
+	public String toString() {
+		if(this.getFilsG() == null) {
+			return "[ Cle : "+this.getCle().toString()+", filsG : vide, filsD : vide]";
+		}else {
+			if(this.getFilsD() == null) {
+				return "[ Cle : "+this.getCle().toString()+", filsG : "+this.getFilsG().toString()+", filsD : vide]"; 
+			}else {
+				return "[ Cle : "+this.getCle().toString()+", filsG : "+this.getFilsG().toString()+", filsD"+this.getFilsD().toString()+"]";	
+			}
+		}
+	}
+	/*public String toString() {
+		return c.toString();
+	}*/
 }

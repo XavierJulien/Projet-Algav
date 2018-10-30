@@ -8,6 +8,7 @@ public class Arbre {
 
 	private Noeud racine;
 	private int nbElem;
+	
 	public Arbre(Noeud racine, int nbElem) {
 		this.racine = racine;
 		this.nbElem = nbElem;
@@ -30,6 +31,7 @@ public class Arbre {
 			return Integer.toBinaryString(n).substring(1); //retire le bit de poids fort
 		}
 	}
+	
 	public Noeud getLastNode() {
 		String path = toBinary(nbElem);
 		Noeud node = racine;
@@ -44,14 +46,40 @@ public class Arbre {
 		return node;
 	}
 	
+	public Noeud getPereFirstNullNode() {
+		String path = toBinary(nbElem+1);
+		String pathPere = path.substring(0, path.length()-1);
+		System.out.println("fils : "+path+",pere : "+pathPere);
+		Noeud node = racine;
+		for(char c : pathPere.toCharArray()) {
+			if(c == '0') {
+				node = node.getFilsG();
+			}
+			if(c == '1') {
+				node = node.getFilsD();
+			}
+		}
+		return node;
+	}
+	                                 
+	public ArrayList<Cle> ParcoursPrefixe(Noeud n) {
+		ArrayList<Cle> ln = new ArrayList<Cle>();
+		ln.add(n.getCle());
+		if (n.getFilsG() != null)
+		    ln.addAll(ParcoursPrefixe(n.getFilsG()));
+		if (n.getFilsD() != null)
+		    ln.addAll(ParcoursPrefixe(n.getFilsD()));
+		return ln;
+	    }
+	
 	public void SupprMin() { //Supprimer la racine en O(log n)
 		Noeud last = getLastNode();
 		Noeud pere = last.getPere();
-		//on met à jour les refs sur les entourants du dernier element
+		//on met ï¿½ jour les refs sur les entourants du dernier element
 		last.setFilsG(racine.getFilsG());
 		last.setFilsD(racine.getFilsD());
 		last.setPere(null);
-		//on met à jour le fils supprimé du pere
+		//on met ï¿½ jour le fils supprimï¿½ du pere
 		if(pere.getFilsD() == null) {
 			pere.setFilsG(null);
 		}else {
@@ -65,17 +93,57 @@ public class Arbre {
 	}
 	
 	public void Ajout(Cle c) { //Ajout parmi les noeud en O(log n)
+		//On va chercher le pere
+		Noeud pere = getPereFirstNullNode();
+		//System.out.println(pere.getCle().toString());
+		if(pere.getFilsG()==null) {
+			pere.setFilsG(new Noeud(c,pere,null,null));
+		}else {
+			pere.setFilsD(new Noeud(c,pere,null,null));
+		}
 		nbElem++;
-		
-		
 	}
 	
-	public void ConsIter(ArrayList<Cle> l) { // Cons en O(n)
+	public Arbre ConsIter(ArrayList<Cle> l) { // Cons en O(n)
+		ArrayList<Noeud> listNode = new ArrayList<Noeud>();
+		//premier parcours pour crÃ©er la liste de noeuds
+		for(int i = 0;i<l.size();i++){
+			listNode.add(new Noeud(l.get(i)));
+		}
+		int size = listNode.size();
+		//deuxiÃ¨me parcours pour faire les relations de parentÃ©s entre les noeuds
+		for(int i = 0;i<size;i++) {
+			if(((i*2)+1)<size)
+				listNode.get(i).setFilsG(listNode.get((i*2)+1));
+			if(((i*2)+2)<size)
+			listNode.get(i).setFilsD(listNode.get((i*2)+2));
+			listNode.get(i).setPere(listNode.get((i-1)/2));
+		}
+		Noeud racine = listNode.get(0);
+		return new Arbre(racine,listNode.size());
+	}
+	
+	public Arbre Union(Arbre a1, Arbre a2) {// Union en O(n + m)
+		ArrayList<Cle> la1 = ParcoursPrefixe(a1.getRacine());
+		ArrayList<Cle> la2 = ParcoursPrefixe(a2.getRacine());
+		ArrayList<Cle> la = new ArrayList<Cle>(la1);
+		la.addAll(la2);
+		System.out.println(la.toString());
+		Arbre a = ConsIter(la);
+		ParcoursPrefixeRedescente(a.getRacine());
+		return a;
+	}
+
+	public void ParcoursPrefixeRedescente(Noeud a) {
+		a.redescente();
+		if (a.getFilsG() != null)
+		    ParcoursPrefixeRedescente(a.getFilsG());
+		if (a.getFilsD() != null)
+		    ParcoursPrefixe(a.getFilsD());
+	}
+	
+	public String toString() {
+		return "["+racine.getCle().toString()+","+racine.getFilsG().toString()+","+racine.getFilsD().toString()+"]";
 		
 	}
-	
-	public Tableau Union(Tableau t1, Tableau t2) {// Union en O(n + m)
-		return null;
-	}
-	
 }
