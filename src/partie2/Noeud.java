@@ -33,8 +33,6 @@ public class Noeud {
 	public void setFilsD(Noeud filsD) {this.filsD = filsD;}
 	public void setPere(Noeud pere) {this.pere = pere;}
 	public void setC(Cle temp) {c = temp;}
-	
-	
 
 	public void redescente() {//algorithme r�cursif qui �change les cl�s vers le bas tant qu'on as un fils plus petit que soit
 		//System.out.println("l'element en cours est "+c.toString());

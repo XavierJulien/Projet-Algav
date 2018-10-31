@@ -1,10 +1,9 @@
+package partie2;
 import java.util.ArrayList;
 
 import partie1.Cle;
-import partie2.Arbre;
-import partie2.Noeud;
 
-public class test {
+public class TestArbre {
 
 	public static void main(String[] args) {
 		
@@ -26,6 +25,9 @@ public class test {
 		lc1.add(c1);
 		Arbre a = new Arbre().ConsIter(lc1);
 		System.out.println(a.toString());
+		//a.Ajout(new Cle(1,0,0,0));
+		//System.out.println(a.toString());
+		
 		//Construction de l'arbre a2
 		Cle c8 = new Cle(1,0,0,0);
 		Cle c9 = new Cle(1,0,0,1);
@@ -36,27 +38,17 @@ public class test {
 		lc2.add(c8);
 		Arbre a2 = new Arbre().ConsIter(lc2);
 		System.out.println(a2.toString());
-		a.Union(a, a2);
-		// Check SupprMin
-		//System.out.println(a.getLastNode().getCle().toString());
-		//a.SupprMin();
-		//System.out.println("racine"+a.getRacine().getCle().toString());
-		//System.out.println("sous-racie"+a.getRacine().getFilsD().getCle().toString());
-		//System.out.println(a.getLastNode().getCle().toString());
 		
+		//opérations
+		//a.Union(a, a2);
+		//System.out.println(a.toString());
+		// Check SupprMin
+		//System.out.println(a.toString());
+		//a.SupprMin();
+		//System.out.println(a.toString());
 		// Check Ajout
 		// a.Ajout(new Cle(1,0,0,0));
 		
-		// Check ConsIter
-		/*ArrayList<Cle> lc = new ArrayList<Cle>();
-		lc.add(c4);
-		lc.add(c3);
-		lc.add(c2);
-		lc.add(c1);
-		Arbre a2 = new Arbre().ConsIter(lc);
-		//Arbre a2= new Arbre(new Noeud(new Cle(1,0,0,0),null,null,null),1);
-		Arbre b = a.Union(a, a2);
-		//System.out.println(b.toString());*/
 	}
 
 }

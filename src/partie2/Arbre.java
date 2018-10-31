@@ -98,8 +98,10 @@ public class Arbre {
 		//System.out.println(pere.getCle().toString());
 		if(pere.getFilsG()==null) {
 			pere.setFilsG(new Noeud(c,pere,null,null));
+			pere.redescente();
 		}else {
 			pere.setFilsD(new Noeud(c,pere,null,null));
+			pere.redescente();
 		}
 		nbElem++;
 	}
@@ -134,10 +136,7 @@ public class Arbre {
 		ArrayList<Cle> la2 = ParcoursPrefixe(a2.getRacine());
 		ArrayList<Cle> la = new ArrayList<Cle>(la1);
 		la.addAll(la2);
-		Arbre a = ConsIter(la);
-		System.out.println(a.toString());
-		//ParcoursPrefixeRedescente(a.getRacine());
-		return a;
+		return ConsIter(la);
 	}
 	
 	public String toString() {
