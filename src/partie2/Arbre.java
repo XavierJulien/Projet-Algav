@@ -141,7 +141,7 @@ public class Arbre {
 	}
 	
 	public String toString() {
-		return "["+racine.getCle().toString()+", filsG : "+racine.getFilsG().toString()+",fils D : "+racine.getFilsD().toString()+"]";
+		return "[ Cle : "+racine.getCle().toString()+", filsG : "+racine.getFilsG().toString()+",fils D : "+racine.getFilsD().toString()+"]";
 		
 	}
 }
