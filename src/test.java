@@ -8,6 +8,7 @@ public class test {
 
 	public static void main(String[] args) {
 		
+		//Construction de l'arbre a1
 		Cle c1 = new Cle(0,0,0,1);
 		Cle c2 = new Cle(0,0,1,0);
 		Cle c3 = new Cle(0,0,1,1);
@@ -24,7 +25,18 @@ public class test {
 		lc1.add(c2);
 		lc1.add(c1);
 		Arbre a = new Arbre().ConsIter(lc1);
+		System.out.println(a.toString());
+		//Construction de l'arbre a2
+		Cle c8 = new Cle(1,0,0,0);
+		Cle c9 = new Cle(1,0,0,1);
+		Cle c10 = new Cle(1,0,1,0);
+		ArrayList<Cle> lc2 = new ArrayList<Cle>();
+		lc2.add(c10);
+		lc2.add(c9);
+		lc2.add(c8);
+		Arbre a2 = new Arbre().ConsIter(lc2);
 		System.out.println(a2.toString());
+		a.Union(a, a2);
 		// Check SupprMin
 		//System.out.println(a.getLastNode().getCle().toString());
 		//a.SupprMin();
@@ -44,7 +56,7 @@ public class test {
 		Arbre a2 = new Arbre().ConsIter(lc);
 		//Arbre a2= new Arbre(new Noeud(new Cle(1,0,0,0),null,null,null),1);
 		Arbre b = a.Union(a, a2);
-		//System.out.println(b.toString());
+		//System.out.println(b.toString());*/
 	}
 
 }
