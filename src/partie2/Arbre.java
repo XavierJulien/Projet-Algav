@@ -118,11 +118,15 @@ public class Arbre {
 				listNode.get(i).setFilsG(listNode.get((i*2)+1));
 			if(((i*2)+2)<size)
 			listNode.get(i).setFilsD(listNode.get((i*2)+2));
+			if(i != 0)
 			listNode.get(i).setPere(listNode.get((i-1)/2));
 		}
-		Noeud racine2 = listNode.get(0);
-		ParcoursPrefixeRedescente(racine2);
-		return new Arbre(racine2,listNode.size());
+		System.out.println(size);
+		for(int i = (size/2)-1;i>=0;i--){
+			listNode.get(i).redescente();
+		}
+		
+		return new Arbre(listNode.get(0),listNode.size());
 	}
 	
 	public Arbre Union(Arbre a1, Arbre a2) {// Union en O(n + m)
@@ -134,14 +138,6 @@ public class Arbre {
 		System.out.println(a.toString());
 		//ParcoursPrefixeRedescente(a.getRacine());
 		return a;
-	}
-
-	public void ParcoursPrefixeRedescente(Noeud a) {
-		a.redescente();
-		if (a.getFilsG() != null)
-		    ParcoursPrefixeRedescente(a.getFilsG());
-		if (a.getFilsD() != null)
-		    ParcoursPrefixe(a.getFilsD());
 	}
 	
 	public String toString() {

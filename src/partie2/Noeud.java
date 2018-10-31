@@ -38,7 +38,7 @@ public class Noeud {
 
 	public void redescente() {//algorithme r�cursif qui �change les cl�s vers le bas tant qu'on as un fils plus petit que soit
 		//System.out.println("l'element en cours est "+c.toString());
-		if(filsD == null) {
+		if(filsD == null && filsG != null) {
 			//System.out.println("On cherche a remplacer le filsG "+filsG.getCle().toString());
 			Cle current = c;
 			Cle cFilsG = filsG.getCle();
@@ -49,7 +49,9 @@ public class Noeud {
 				//System.out.println("mon nouveau current :"+c.toString());
 				//System.out.println("mon nouveau filsG"+filsG.getCle().toString());
 			}
-		}else {
+		
+		}
+		if(filsD != null && filsG != null) {	
 			Cle current = c;
 			Cle cFilsG = filsG.getCle();
 			Cle cFilsD = filsD.getCle();
