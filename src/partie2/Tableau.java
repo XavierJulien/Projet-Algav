@@ -66,6 +66,16 @@ public class Tableau {
 		return new Tableau(tab);
 	}
 	
+	public ArrayList<Cle> ParcoursPrefixe(Tableau t) {
+		ArrayList<Cle> ln = new ArrayList<Cle>();
+		ln.add(t.tab.get(0));
+		if (t.tab.get(ind) != null)
+		    ln.addAll(ParcoursPrefixe(n.getFilsG()));
+		if (n.getFilsD() != null)
+		    ln.addAll(ParcoursPrefixe(n.getFilsD()));
+		return ln;
+	    }
+	
 	public Tableau Union(Tableau t1, Tableau t2) {// Union en O(n + m)
 		ArrayList<Cle> la1 = ParcoursPrefixe(tab.get(0));
 		ArrayList<Cle> la2 = ParcoursPrefixe(tab.get(0));
