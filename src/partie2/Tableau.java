@@ -67,7 +67,11 @@ public class Tableau {
 	}
 	
 	public Tableau Union(Tableau t1, Tableau t2) {// Union en O(n + m)
-		return null;
+		ArrayList<Cle> la1 = ParcoursPrefixe(tab.get(0));
+		ArrayList<Cle> la2 = ParcoursPrefixe(tab.get(0));
+		ArrayList<Cle> la = new ArrayList<Cle>(la1);
+		la.addAll(la2);
+		return ConsIter(la);
 	}
 	
 	public void redescente(Cle c) {//algorithme r�cursif qui �change les cl�s vers le bas tant qu'on as un fils plus petit que soit
@@ -94,7 +98,6 @@ public class Tableau {
 					Cle temp = current;
 					tab.set(index, cFilsG);
 					tab.set(index*2+1,temp);
-					if(tab.get(index*2+1) != null)
 						redescente(tab.get(index*2+1));
 				}
 			}else {
@@ -102,7 +105,7 @@ public class Tableau {
 					Cle temp = current;
 					tab.set(index, cFilsD);
 					tab.set(index*2+2,temp);
-					if(tab.get(index*2+2) != null)
+						redescente(tab.get(index*2+1));
 						redescente(tab.get(index*2+2));
 				}
 			}

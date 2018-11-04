@@ -15,6 +15,7 @@ public class TestTableau {
 		Cle c5 = new Cle(0,1,0,1);
 		Cle c6 = new Cle(0,1,1,0);
 		Cle c7 = new Cle(0,1,1,1);
+		/*
 		ArrayList<Cle> lc1 = new ArrayList<Cle>();
 		lc1.add(c1);
 		lc1.add(c2);
@@ -23,7 +24,7 @@ public class TestTableau {
 		lc1.add(c5);
 		lc1.add(c6);
 		lc1.add(c7);
-		Tableau t1 = new Tableau(lc1);
+		Tableau t1 = new Tableau(lc1);*/
 		//System.out.println(t1.toString());
 		//t1.SupprMin();
 		//System.out.println(t1.toString());
