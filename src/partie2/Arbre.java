@@ -49,7 +49,6 @@ public class Arbre {
 	public Noeud getPereFirstNullNode() {
 		String path = toBinary(nbElem+1);
 		String pathPere = path.substring(0, path.length()-1);
-		System.out.println("fils : "+path+",pere : "+pathPere);
 		Noeud node = racine;
 		for(char c : pathPere.toCharArray()) {
 			if(c == '0') {
@@ -115,7 +114,6 @@ public class Arbre {
 		int size = listNode.size();
 		//deuxième parcours pour faire les relations de parentés entre les noeuds
 		for(int i = 0;i<size;i++) {
-			System.out.println(listNode.get(i).getCle().toString());
 			if(((i*2)+1)<size)
 				listNode.get(i).setFilsG(listNode.get((i*2)+1));
 			if(((i*2)+2)<size)
@@ -123,7 +121,6 @@ public class Arbre {
 			if(i != 0)
 			listNode.get(i).setPere(listNode.get((i-1)/2));
 		}
-		System.out.println(size);
 		for(int i = (size/2)-1;i>=0;i--){
 			listNode.get(i).redescente();
 		}
