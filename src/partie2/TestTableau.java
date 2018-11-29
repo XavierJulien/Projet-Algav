@@ -40,20 +40,22 @@ public class TestTableau {
 		lc2.add(c3);
 		lc2.add(c2);
 		lc2.add(c1);
-		System.out.println(lc2.toString());
+		//System.out.println(lc2.toString());
 		Tableau t2 = new Tableau().ConsIter(lc2);
-		System.out.println(t2.toString());
-		/*Construction de l'arbre a2
+		//Construction de l'arbre a2
 		Cle c8 = new Cle(1,0,0,0);
 		Cle c9 = new Cle(1,0,0,1);
 		Cle c10 = new Cle(1,0,1,0);
-		ArrayList<Cle> lc2 = new ArrayList<Cle>();
-		lc2.add(c10);
-		lc2.add(c9);
-		lc2.add(c8);
-		Tableau t2 = new Tableau(lc2);
+		ArrayList<Cle> lc3 = new ArrayList<Cle>();
+		lc3.add(c10);
+		lc3.add(c9);
+		lc3.add(c8);
+		Tableau t3 = new Tableau().ConsIter(lc3);
+		System.out.println(t2.tab.toString());
+		System.out.println(t3.tab.toString());
 		//t2.SupprMin();
-		*/
+		Tableau tfinal = t2.Union(t3, t2);
+		System.out.println(tfinal.tab.toString());
 		
 	}
 

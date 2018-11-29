@@ -42,18 +42,15 @@ public class Tableau {
 	//Méthodes demandés
 	public void SupprMin() { //Supprimer le minimum en O(log n)
 		Cle min = tab.get(getTaille()-1);
-		System.out.println(min.toString());
 		tab.set(getTaille()-1,tab.get(0));
 		tab.set(0, min);
 		tab.remove(getTaille()-1);
-		System.out.println("redescente");
 		redescente(tab.get(0));
 		}
 	
 	public void Ajout(Cle c) { //Ajout parmi les cles en O(log n)
 		tab.add(c);
 		int indexFils = tab.size()-1;
-		System.out.println("index du dernier élement àjouté :"+indexFils+",indexPere :"+(indexFils-1)/2);
 		redescente(tab.get((indexFils-1)/2));	
 	}
 	
@@ -66,19 +63,9 @@ public class Tableau {
 		return new Tableau(tab);
 	}
 	
-	public ArrayList<Cle> ParcoursPrefixe(Tableau t) {
-		ArrayList<Cle> ln = new ArrayList<Cle>();
-		ln.add(t.tab.get(0));
-		if (t.tab.get(ind) != null)
-		    ln.addAll(ParcoursPrefixe(n.getFilsG()));
-		if (n.getFilsD() != null)
-		    ln.addAll(ParcoursPrefixe(n.getFilsD()));
-		return ln;
-	    }
-	
 	public Tableau Union(Tableau t1, Tableau t2) {// Union en O(n + m)
-		ArrayList<Cle> la1 = ParcoursPrefixe(tab.get(0));
-		ArrayList<Cle> la2 = ParcoursPrefixe(tab.get(0));
+		ArrayList<Cle> la1 = t1.tab;
+		ArrayList<Cle> la2 = t2.tab;
 		ArrayList<Cle> la = new ArrayList<Cle>(la1);
 		la.addAll(la2);
 		return ConsIter(la);
@@ -88,7 +75,6 @@ public class Tableau {
 		int index = tab.indexOf(c);
 		int lastindex = tab.size()-1;
 		if(index*2+1 <= lastindex   && index*2+2 > lastindex) {
-			System.out.println("j'ai qu'un fils gauche");
 			Cle current = c;
 			Cle cFilsG = tab.get(index*2+1);
 			if(cFilsG.inf(current)) {
@@ -98,8 +84,7 @@ public class Tableau {
 			}
 		
 		}
-		if(index*2+1 < lastindex && index*2+2 <= lastindex) {	
-			System.out.println("j'ai deux fils");
+		if(index*2+1 < lastindex && index*2+2 <= lastindex) {
 			Cle current = c;
 			Cle cFilsG = tab.get(index*2+1);
 			Cle cFilsD = tab.get(index*2+2);
