@@ -40,7 +40,7 @@ public class TestArbre {
 		System.out.println(a2.toString());
 		
 		//opérations
-		//a.Union(a, a2);
+		a.Union(a, a2);
 		//System.out.println(a.toString());
 		// Check SupprMin
 		//System.out.println(a.toString());
