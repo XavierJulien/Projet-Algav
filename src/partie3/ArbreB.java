@@ -8,14 +8,17 @@ public class ArbreB {
 
 	private Cle c;
 	private ArrayList<ArbreB> sousarbres;
+	private int size;
 	
 	public ArbreB(){
 		this.c = null;
 		sousarbres = new ArrayList<ArbreB>();
+		this.size = 0;
 	}
 	public ArbreB(Cle c) {
 		this.c = c;
 		sousarbres = new ArrayList<ArbreB>();
+		this.size = 1;
 	}
 	//getters
 	public ArrayList<ArbreB> getSousarbres() {return sousarbres;}
@@ -24,9 +27,16 @@ public class ArbreB {
 	public void setSousarbres(ArrayList<ArbreB> sousarbres) {this.sousarbres = sousarbres;}
 	public void setC(Cle c) {this.c = c;}
 	
+	public int getSize() {
+		return size;
+	}
+	public void setSize(int size) {
+		this.size = size;
+	}
+	
 	//primitives
 	public Boolean estVide(ArbreB a){
-		if(sousarbres.isEmpty() && c == null) {
+		if(size == 0) {
 			return true;
 		}else{
 			return false;
@@ -46,11 +56,13 @@ public class ArbreB {
 			ArbreB res =  new ArbreB(c);
 			res.getSousarbres().addAll(sousarbres);
 			res.getSousarbres().add(a);
+			res.setSize(res.degre());
 			return res;
 		}else{
 			ArbreB res =  new ArbreB(a.getC());
 			res.getSousarbres().addAll(a.getSousarbres());
 			res.getSousarbres().add(this);
+			res.setSize(res.degre());
 			return res;
 		}
 	}
