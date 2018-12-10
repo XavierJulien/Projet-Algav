@@ -59,7 +59,6 @@ public class FileBinomiale {
 	}
 
 	public FileBinomiale SupprMin() {
-		System.out.println("lol");
 		int index = 0;
 		Cle max = arbres.get(0).getC();
 		for(int i = 1;i<arbres.size();i++) {
