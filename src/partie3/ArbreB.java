@@ -9,17 +9,14 @@ public class ArbreB {
 
 	private Cle c;
 	private ArrayList<ArbreB> sousarbres;
-	private int size;
 	
 	public ArbreB(){
 		this.c = null;
 		sousarbres = new ArrayList<ArbreB>();
-		this.size = 0;
 	}
 	public ArbreB(Cle c) {
 		this.c = c;
 		sousarbres = new ArrayList<ArbreB>();
-		this.size = 1;
 	}
 	//getters
 	public ArrayList<ArbreB> getSousarbres() {return sousarbres;}
@@ -28,16 +25,9 @@ public class ArbreB {
 	public void setSousarbres(ArrayList<ArbreB> sousarbres) {this.sousarbres = sousarbres;}
 	public void setC(Cle c) {this.c = c;}
 	
-	public int getSize() {
-		return size;
-	}
-	public void setSize(int size) {
-		this.size = size;
-	}
-	
 	//primitives
-	public Boolean estVide(ArbreB a){
-		if(size == 0) {
+	public Boolean estVide(){
+		if(c == null && sousarbres.isEmpty()) {
 			return true;
 		}else{
 			return false;

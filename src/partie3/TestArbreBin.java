@@ -34,7 +34,7 @@ public class TestArbreBin {
 		System.out.println(b0.toString(1));
 		System.out.println(b0.degre());
 		System.out.println(b4.degre());*/
-		
+
 		//Test Union
 		Cle c0 = new Cle(0,0,0,0);
 		Cle c1 = new Cle(0,0,0,1);
@@ -47,9 +47,9 @@ public class TestArbreBin {
 		Cle c8 = new Cle(1,0,0,0);
 		Cle c9 = new Cle(1,0,0,1);
 		ArrayList<Cle> c = new ArrayList<>();
-		c.add(c0);
-		c.add(c1);
 		c.add(c2);
+		c.add(c1);
+		c.add(c0);
 		c.add(c3);
 		c.add(c4);
 		c.add(c5);
@@ -59,6 +59,8 @@ public class TestArbreBin {
 		c.add(c9);
 		FileBinomiale fb = new FileBinomiale().ConsIter(c);
 		System.out.println(fb.toString());
+		FileBinomiale suppr = fb.SupprMin();
+		System.out.println(suppr.toString());
 		/*ArbreB b0 = new ArbreB(c0);
 		ArbreB b1 = new ArbreB(c1);
 		ArbreB b2 = new ArbreB(c2);
@@ -70,14 +72,14 @@ public class TestArbreBin {
 		b0.getSousarbres().add(b1);
 		b0.getSousarbres().add(b2);
 		b2.getSousarbres().add(b3);
-		
+
 		b4.getSousarbres().add(b5);
 		b4.getSousarbres().add(b6);
 		b6.getSousarbres().add(b7);
 		ArbreB uni = b0.Union2Tid(b4);
 		System.out.println(uni.degre());
 		System.out.println(uni.toString(1));*/
-		
+
 	}
 
 }
