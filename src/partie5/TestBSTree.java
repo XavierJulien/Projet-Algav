@@ -29,8 +29,7 @@ public class TestBSTree {
 		c.add(c8);
 		c.add(c9);
 		
-		BSTree b = new BSTree(c.get(0));
-
+		AVLTree b = new AVLTree(c.get(0));
 	}
 
 }
