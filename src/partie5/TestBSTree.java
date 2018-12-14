@@ -1,6 +1,6 @@
 package partie5;
 
-import java.util.ArrayList;
+//import java.util.ArrayList;
 
 import partie1.Cle;
 
@@ -17,19 +17,31 @@ public class TestBSTree {
 		Cle c7 = new Cle(0,1,1,1);
 		Cle c8 = new Cle(1,0,0,0);
 		Cle c9 = new Cle(1,0,0,1);
-		ArrayList<Cle> c = new ArrayList<>();
-		c.add(c2);
-		c.add(c1);
-		c.add(c0);
-		c.add(c3);
-		c.add(c4);
-		c.add(c5);
-		c.add(c6);
-		c.add(c7);
-		c.add(c8);
-		c.add(c9);
+		Cle c10 = new Cle(1,0,1,0);
+		Cle c11 = new Cle(1,0,1,1);
 		
-		AVLTree b = new AVLTree(c.get(0));
+		AVLTree a = new AVLTree(c6);
+		try {
+			a = a.ajout(a,c4);
+			a = a.ajout(a,c2);
+			a = a.ajout(a,c1);
+			a = a.ajout(a,c0);
+			a = a.ajout(a,c5);
+			a = a.ajout(a,c3);
+			a = a.ajout(a,c8);
+			a = a.ajout(a,c7);
+			a = a.ajout(a,c9);
+			a = a.ajout(a,c10);
+			a = a.ajout(a,c11);
+			
+		}catch(CleExistanteException e) {
+			System.out.println(e.getMessage());
+		}
+		
+		//tests
+		System.out.println("Taille : "+ a.getfilsD().getfilsD().getHeight());
+		System.out.println("\n\nArbre Final : "+a.toString());
+		System.out.println("Je cherche "+c7.toString()+" : "+a.recherche(a, c7));
 	}
 
 }
