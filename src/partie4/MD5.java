@@ -1,118 +1,123 @@
 package partie4;
-
 public class MD5 {
-
-
-	private int r[] = {7, 12, 17, 22,  7, 12, 17, 22,  7, 12, 17, 22,  7, 12, 17, 22, 
-			5,  9, 14, 20,  5,  9, 14, 20,  5,  9, 14, 20,  5,  9, 14, 20, 
-			4, 11, 16, 23,  4, 11, 16, 23,  4, 11, 16, 23,  4, 11, 16, 23, 
-			6, 10, 15, 21,  6, 10, 15, 21,  6, 10, 15, 21,  6, 10, 15, 21};
-	private int k[]; 
-
-	private int h0 = 0x67452301;
-	private int h1 = 0xEFCDAB89;
-	private int h2 = 0x98BADCFE;
-	private int h3 = 0x10325476;
-
-	public MD5() {
-		k = new int[64];
-		for(int i = 0;i<64;i++) {
-			k[i] = (int)(Math.abs(Math.sin(i+1)* Math.pow(2, 32)));
-		}
-	}
-	public void md5(String message) {
-		
-	}
-	
-	public String padding(String mess) {
-		byte []mess_byte = mess.getBytes();
-		String res = "";
-		int size = mess.length();
-		
-		for(byte b : mess_byte) {
-			res+=Integer.toBinaryString(b);
-		}
-		System.out.println(res);
-		/*while(res.length() < 448) {
-			
-		}*/
-		return res;
-	}
-	
-	public byte[] intToLittleEndian(long numero) {
-		byte[] b = new byte[4];
-		b[0] = (byte) (numero & 0xFF);
-		b[1] = (byte) ((numero >> 8) & 0xFF);
-		b[2] = (byte) ((numero >> 16) & 0xFF);
-		b[3] = (byte) ((numero >> 24) & 0xFF);
-		return b;
-	}
+ 
+  private static final int INIT_A = 0x67452301;
+  private static final int INIT_B = (int)0xEFCDAB89L;
+  private static final int INIT_C = (int)0x98BADCFEL;
+  private static final int INIT_D = 0x10325476;
+ 
+  private static final int[] SHIFT_AMTS = {
+    7, 12, 17, 22,
+    5,  9, 14, 20,
+    4, 11, 16, 23,
+    6, 10, 15, 21
+  };
+ 
+  private static final int[] TABLE_T = new int[64];
+  static
+  {
+    for (int i = 0; i < 64; i++)
+      TABLE_T[i] = (int)(long)((1L << 32) * Math.abs(Math.sin(i + 1)));
+  }
+ 
+  public static byte[] computeMD5(byte[] message)
+  {
+    int messageLenBytes = message.length;
+    int numBlocks = ((messageLenBytes + 8) >>> 6) + 1;
+    int totalLen = numBlocks << 6;
+    byte[] paddingBytes = new byte[totalLen - messageLenBytes];
+    paddingBytes[0] = (byte)0x80;
+ 
+    long messageLenBits = (long)messageLenBytes << 3;
+    for (int i = 0; i < 8; i++)
+    {
+      paddingBytes[paddingBytes.length - 8 + i] = (byte)messageLenBits;
+      messageLenBits >>>= 8;
+    }
+ 
+    int a = INIT_A;
+    int b = INIT_B;
+    int c = INIT_C;
+    int d = INIT_D;
+    int[] buffer = new int[16];
+    for (int i = 0; i < numBlocks; i ++)
+    {
+      int index = i << 6;
+      for (int j = 0; j < 64; j++, index++)
+        buffer[j >>> 2] = ((int)((index < messageLenBytes) ? message[index] : paddingBytes[index - messageLenBytes]) << 24) | (buffer[j >>> 2] >>> 8);
+      int originalA = a;
+      int originalB = b;
+      int originalC = c;
+      int originalD = d;
+      for (int j = 0; j < 64; j++)
+      {
+        int div16 = j >>> 4;
+        int f = 0;
+        int bufferIndex = j;
+        switch (div16)
+        {
+          case 0:
+            f = (b & c) | (~b & d);
+            break;
+ 
+          case 1:
+            f = (b & d) | (c & ~d);
+            bufferIndex = (bufferIndex * 5 + 1) & 0x0F;
+            break;
+ 
+          case 2:
+            f = b ^ c ^ d;
+            bufferIndex = (bufferIndex * 3 + 5) & 0x0F;
+            break;
+ 
+          case 3:
+            f = c ^ (b | ~d);
+            bufferIndex = (bufferIndex * 7) & 0x0F;
+            break;
+        }
+        int temp = b + Integer.rotateLeft(a + f + buffer[bufferIndex] + TABLE_T[j], SHIFT_AMTS[(div16 << 2) | (j & 3)]);
+        a = d;
+        d = c;
+        c = b;
+        b = temp;
+      }
+ 
+      a += originalA;
+      b += originalB;
+      c += originalC;
+      d += originalD;
+    }
+ 
+    byte[] md5 = new byte[16];
+    int count = 0;
+    for (int i = 0; i < 4; i++)
+    {
+      int n = (i == 0) ? a : ((i == 1) ? b : ((i == 2) ? c : d));
+      for (int j = 0; j < 4; j++)
+      {
+        md5[count++] = (byte)n;
+        n >>>= 8;
+      }
+    }
+    return md5;
+  }
+ 
+  public static String toHexString(byte[] b)
+  {
+    StringBuilder sb = new StringBuilder();
+    for (int i = 0; i < b.length; i++)
+    {
+      sb.append(String.format("%02X", b[i] & 0xFF));
+    }
+    return sb.toString();
+  }
+ 
+  public static void main(String[] args)
+  {
+    String[] testStrings = { "", "a", "abc", "message digest", "abcdefghijklmnopqrstuvwxyz", "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789", "12345678901234567890123456789012345678901234567890123456789012345678901234567890" };
+    for (String s : testStrings)
+      System.out.println("0x" + toHexString(computeMD5(s.getBytes())) + " <== \"" + s + "\"");
+    return;
+  }
+ 
 }
-
-/*
-//Note : Toutes les privateiables sont sur 32 bits
-
-//Définir r comme suit : 
-var entier[64] r, k
-r[ 0..15] := {7, 12, 17, 22,  7, 12, 17, 22,  7, 12, 17, 22,  7, 12, 17, 22}
-r[16..31] := {5,  9, 14, 20,  5,  9, 14, 20,  5,  9, 14, 20,  5,  9, 14, 20}
-r[32..47] := {4, 11, 16, 23,  4, 11, 16, 23,  4, 11, 16, 23,  4, 11, 16, 23}
-r[48..63] := {6, 10, 15, 21,  6, 10, 15, 21,  6, 10, 15, 21,  6, 10, 15, 21}
-
-//MD5 utilise des sinus d'entiers pour ses constantes :
-pour i de 0 à 63 faire
-  k[i] := floor(abs(sin(i + 1)) × 2^32)
-fin pour
-
-//Préparation des variables :
-var entier h0 := 0x67452301
-var entier h1 := 0xEFCDAB89
-var entier h2 := 0x98BADCFE
-var entier h3 := 0x10325476
-
-//Préparation du message (padding) :
-ajouter le bit "1" au message
-ajouter le bit "0" jusqu'à ce que la taille du message en bits soit égale à 448 (mod 512)
-ajouter la taille du message codée en 64-bit little-endian au message
-
-//Découpage en blocs de 512 bits :
-pour chaque bloc de 512 bits du message
-  subdiviser en 16 mots de 32 bits en little-endian w[i], 0 ≤ i ≤ 15
-
-  //initialiser les valeurs de hachage :
-  var entier a := h0
-  var entier b := h1
-  var entier c := h2
-  var entier d := h3
-
-  //Boucle principale :
-  pour i de 0 à 63 faire
-      si 0 ≤ i ≤ 15 alors
-            f := (b et c) ou ((non b) et d)
-            g := i
-      sinon si 16 ≤ i ≤ 31 alors
-            f := (d et b) ou ((non d) et c)
-            g := (5×i + 1) mod 16
-      sinon si 32 ≤ i ≤ 47 alors
-            f := b xor c xor d
-            g := (3×i + 5) mod 16
-      sinon si 48 ≤ i ≤ 63 alors
-          f := c xor (b ou (non d))
-          g := (7×i) mod 16
-      fin si
-      var entier temp := d
-      d := c
-      c := b
-      b := ((a + f + k[i] + w[g]) leftrotate r[i]) + b
-      a := temp
-  fin pour
-
-  //ajouter le résultat au bloc précédent :
-  h0 := h0 + a
-  h1 := h1 + b 
-  h2 := h2 + c
-  h3 := h3 + d
-fin pour
-
-var entier empreinte := h0 concaténer h1 concaténer h2 concaténer h3 //(en little-endian)
- */
