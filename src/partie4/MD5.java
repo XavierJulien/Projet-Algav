@@ -33,8 +33,14 @@ public class MD5 {
     {
       paddingBytes[paddingBytes.length - 8 + i] = (byte)messageLenBits;
       messageLenBits >>>= 8;
+      
     }
- 
+    String s = "";
+    for(int i = 0 ;i<paddingBytes.length ;i++) 
+    {
+    	s += paddingBytes[i];
+    }
+    System.out.println(s);
     int a = INIT_A;
     int b = INIT_B;
     int c = INIT_C;
@@ -43,8 +49,11 @@ public class MD5 {
     for (int i = 0; i < numBlocks; i ++)
     {
       int index = i << 6;
-      for (int j = 0; j < 64; j++, index++)
+      for (int j = 0; j < 64; j++, index++) {
         buffer[j >>> 2] = ((int)((index < messageLenBytes) ? message[index] : paddingBytes[index - messageLenBytes]) << 24) | (buffer[j >>> 2] >>> 8);
+        //System.out.println((buffer[j >>> 2] >>> 8));
+        //System.out.println(buffer[j >>> 2]);
+      }
       int originalA = a;
       int originalB = b;
       int originalC = c;
@@ -76,6 +85,7 @@ public class MD5 {
             break;
         }
         int temp = b + Integer.rotateLeft(a + f + buffer[bufferIndex] + TABLE_T[j], SHIFT_AMTS[(div16 << 2) | (j & 3)]);
+        //System.out.println(temp);
         a = d;
         d = c;
         c = b;
@@ -86,6 +96,10 @@ public class MD5 {
       b += originalB;
       c += originalC;
       d += originalD;
+      System.out.println(a);
+      System.out.println(b);
+      System.out.println(c);
+      System.out.println(d);
     }
  
     byte[] md5 = new byte[16];

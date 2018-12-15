@@ -14,7 +14,7 @@ public class MainPartie1 {
 		Parser p = new Parser();
 		ArrayList<String> filenames = new ArrayList<String>();
 		for(int i = 1;i<6;i++) {
-			filenames.add("src/data/cles_alea/jeu_"+i+"_nb_cles_10000.txt");
+			filenames.add("src/data/cles_alea/jeu_"+i+"_nb_cles_50000.txt");
 		}
 		long tps_total_arbre = 0;
 		long tps_total_tableau = 0;
