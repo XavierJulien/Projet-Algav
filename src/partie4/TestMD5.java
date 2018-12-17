@@ -4,7 +4,8 @@ public class TestMD5{
 
 	public static void main(String[] args){
 		MD5t m = new MD5t();
-		System.out.println(m.padding("a"));
+		System.out.println(m.md5("Wikipedia est pas mal comme navigateur de feffffffffffffffffffffrecherche"));
+		System.out.println(Integer.toBinaryString(Integer.parseInt("61", 16)));
 		/*for(int i = 0 ; i<res.length;i++)
 			System.out.println(res[i]);*/
 		//System.out.println("Résultat attendu : ");

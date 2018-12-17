@@ -39,8 +39,8 @@ public class MD5t {
 		int C = c0;
 		int D = d0;
 		for(int i = 0;i<nb_block;i++) {
-			String s = padded_mess.substring(i*512, (i+1)*512);
-			//System.out.println(s);
+			String s = padded_mess.substring(i*124, (i+1)*124);
+			System.out.println(s);
 			ArrayList<Integer> list_s = new ArrayList<>();
 			for(int j = 0;j<16;j++) {
 				String temp_s = s.substring((j*32),((j+1)*32));
