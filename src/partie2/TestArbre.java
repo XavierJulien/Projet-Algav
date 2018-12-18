@@ -8,6 +8,7 @@ public class TestArbre {
 	public static void main(String[] args) {
 		
 		//Construction de l'arbre a1
+		Cle c0 = new Cle(0,0,0,0);
 		Cle c1 = new Cle(0,0,0,1);
 		Cle c2 = new Cle(0,0,1,0);
 		Cle c3 = new Cle(0,0,1,1);
@@ -25,10 +26,10 @@ public class TestArbre {
 		lc1.add(c1);
 		Arbre a = new Arbre().ConsIter(lc1);
 		System.out.println(a.toString());
-		//a.Ajout(new Cle(1,0,0,0));
-		//System.out.println(a.toString());
+		a.Ajout(c0);
+		System.out.println(a.toString());
 		
-		//Construction de l'arbre a2
+		/*//Construction de l'arbre a2
 		Cle c8 = new Cle(1,0,0,0);
 		Cle c9 = new Cle(1,0,0,1);
 		Cle c10 = new Cle(1,0,1,0);
@@ -48,7 +49,7 @@ public class TestArbre {
 		//System.out.println(a.toString());
 		// Check Ajout
 		// a.Ajout(new Cle(1,0,0,0));
-		
+		*/
 	}
 
 }

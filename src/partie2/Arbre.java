@@ -97,10 +97,10 @@ public class Arbre {
 		//System.out.println(pere.getCle().toString());
 		if(pere.getFilsG()==null) {
 			pere.setFilsG(new Noeud(c,pere,null,null));
-			pere.redescente();
+			pere.remontee();
 		}else {
 			pere.setFilsD(new Noeud(c,pere,null,null));
-			pere.redescente();
+			pere.remontee();
 		}
 		nbElem++;
 	}

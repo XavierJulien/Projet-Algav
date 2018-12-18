@@ -79,6 +79,54 @@ public class Noeud {
 		}
 	}
 
+	public void remontee() {//algorithme r�cursif qui �change les cl�s vers le bas tant qu'on as un fils plus petit que soit
+		//System.out.println("l'element en cours est "+c.toString());
+		if(filsD == null && filsG != null) {
+			//System.out.println("On cherche a remplacer le filsG "+filsG.getCle().toString());
+			Cle current = c;
+			Cle cFilsG = filsG.getCle();
+			if(cFilsG.inf(current)) {
+				Cle temp = current;
+				c = cFilsG;
+				filsG.setC(temp);
+				//System.out.println("mon nouveau current :"+c.toString());
+				//System.out.println("mon nouveau filsG"+filsG.getCle().toString());
+				if(pere != null) pere.remontee();
+			}
+		
+		}
+		if(filsD != null && filsG != null) {	
+			Cle current = c;
+			Cle cFilsG = filsG.getCle();
+			Cle cFilsD = filsD.getCle();
+			if(cFilsG.inf(cFilsD)) {
+				if(cFilsG.inf(current)) {
+					//System.out.println("On cherche a remplacer le filsG "+filsG.getCle().toString());
+					Cle temp = current;
+					c = cFilsG;
+					filsG.setC(temp);
+					if(filsG != null)
+						//System.out.println("mon nouveau current :"+c.toString());
+						//System.out.println("mon nouveau filsG"+filsG.getCle().toString());
+						filsG.redescente();
+						if(pere != null) pere.remontee();
+				}
+			}else {
+				if(cFilsD.inf(current)) {
+					//System.out.println("On echange avec le filsD "+filsD.getCle().toString());
+					Cle temp = current;
+					c = cFilsD;
+					filsD.setC(temp);
+					if(filsD != null)
+						//System.out.println("mon nouveau current :"+c.toString());
+						//System.out.println("mon nouveau filsD"+filsD.getCle().toString());
+						filsD.redescente();
+					if(pere != null) pere.remontee();
+				}
+			}
+		}
+	}
+
 	public String toString() {
 		if(this.getFilsG() == null) {
 			return "[ Cle : "+this.getCle().toString()+", filsG : vide, filsD : vide]";
