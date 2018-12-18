@@ -111,97 +111,6 @@ public class MD5 {
 		return "0x"+toHexString(md5);
 	}
 
-	public byte[] computeMD5(byte[] message)
-	{
-		for (int i = 0; i < 64; i++) K[i] = (int)(long)(Math.abs(Math.sin(i+1)) * Math.pow(2, 32));
-
-		int messageLenBytes = message.length;
-		int numBlocks = ((messageLenBytes + 8) >>> 6) + 1;
-		int totalLen = numBlocks << 6;
-		byte[] paddingBytes = new byte[totalLen - messageLenBytes];
-		paddingBytes[0] = (byte)0x80;
-
-		System.out.println(totalLen - messageLenBytes);
-		long messageLenBits = (long)messageLenBytes << 3;
-		for (int i = 0; i < 8; i++)
-		{
-			paddingBytes[paddingBytes.length - 8 + i] = (byte)messageLenBits;
-			messageLenBits >>>= 8;
-		}
-
-		int a = a0;
-		int b = b0;
-		int c = c0;
-		int d = d0;
-		int[] buffer = new int[16];
-		for (int i = 0; i < numBlocks; i ++)
-		{
-			int index = i << 6;
-			for (int j = 0; j < 64; j++, index++)
-			{
-				buffer[j >>> 2] = ((int) ((index < messageLenBytes) ? message[index] : paddingBytes[index - messageLenBytes]) << 24) | (buffer[j >>> 2] >>> 8);
-			}
-			int originalA = a;
-			int originalB = b;
-			int originalC = c;
-			int originalD = d;
-			for (int j = 0; j < 64; j++)
-			{
-				int div16 = j >>> 4;
-				int f = 0;
-				int bufferIndex = j;
-				switch (div16)
-				{
-				case 0:
-					f = (b & c) | (~b & d);
-					break;
-
-				case 1:
-					f = (b & d) | (c & ~d);
-					bufferIndex = (bufferIndex * 5 + 1) & 0x0F;
-					break;
-
-				case 2:
-					f = b ^ c ^ d;
-					bufferIndex = (bufferIndex * 3 + 5) & 0x0F;
-					break;
-
-				case 3:
-					f = c ^ (b | ~d);
-					bufferIndex = (bufferIndex * 7) & 0x0F;
-					break;
-				}
-				//System.out.println(bufferIndex);
-				int temp = b + Integer.rotateLeft(a + f + buffer[bufferIndex] + K[j], R[j]);
-				a = d;
-				d = c;
-				c = b;
-				b = temp;
-			}
-
-			a += originalA;
-			b += originalB;
-			c += originalC;
-			d += originalD;
-			/*System.out.println(a);
-			System.out.println(b);
-			System.out.println(c);
-			System.out.println(d);*/
-		}
-
-		byte[] md5 = new byte[16];
-		int count = 0;
-		for (int i = 0; i < 4; i++)
-		{
-			int n = (i == 0) ? a : ((i == 1) ? b : ((i == 2) ? c : d));
-			for (int j = 0; j < 4; j++)
-			{
-				md5[count++] = (byte)n;
-				n >>>= 8;
-			}
-		}
-		return md5;
-	}
 	public String toHexString(byte[] b)
 	{
 		StringBuilder sb = new StringBuilder();
@@ -215,7 +124,8 @@ public class MD5 {
 
 
 	//0xabcdefgh => 0xghefcdab
-	public String padding(String mess) {//Pre-processing: padding with zeros
+	public String padding(String mess) {
+		//Pre-processing: padding with zeros
 		byte[]mess_byte = mess.getBytes();
 		String res = "";
 		String resHexa = "";
@@ -245,8 +155,6 @@ public class MD5 {
 		return resHexa+sizeHex;
 	}
 
-	public String toHexString(Integer s){return Integer.toString(s,16);}
-
 	public String toHexString(String s) {
 		String res = "";
 		if(s.length()%8 == 0) {
@@ -257,21 +165,5 @@ public class MD5 {
 			}
 		}
 		return res;
-	}
-
-	public byte[] messPad(byte[] message) {
-		int messageLenBytes = message.length;
-		int numBlocks = ((messageLenBytes + 8) >>> 6) + 1;
-		int totalLen = numBlocks << 6;
-		byte[] paddingBytes = new byte[totalLen - messageLenBytes];
-		paddingBytes[0] = (byte)0x80;
-
-		long messageLenBits = (long)messageLenBytes << 3;
-		for (int i = 0; i < 8; i++)
-		{
-			paddingBytes[paddingBytes.length - 8 + i] = (byte)messageLenBits;
-			messageLenBits >>>= 8;
-		}
-		return paddingBytes;
 	}
 }
