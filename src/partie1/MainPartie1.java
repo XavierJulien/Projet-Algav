@@ -19,17 +19,31 @@ public class MainPartie1 {
 		long tps_total_arbre = 0;
 		long tps_total_tableau = 0;
 		int cpt = 0;
+		ArrayList<Arbre> list_arbres = new ArrayList<>();
+		ArrayList<Tableau> list_tab = new ArrayList<>();
+	
 		for(String s : filenames) {
 			ArrayList<Cle> l = p.read(s);
 			final long startTimeArbre = System.currentTimeMillis();
-			b.ConsIter(l);
+			b = b.ConsIter(l);
 			final long endTimeArbre = System.currentTimeMillis();
 			final long startTimeTableau = System.currentTimeMillis();
-			t.ConsIter(l);
+			t = t.ConsIter(l);
 			final long endTimeTableau = System.currentTimeMillis();
 			tps_total_arbre += endTimeArbre - startTimeArbre;
 			tps_total_tableau += endTimeTableau - startTimeTableau;
 			cpt++;
+			list_arbres.add(b);
+			list_tab.add(t);
+		}
+		for(int i = 0;i<list_tab.size()-1;i++) {
+			for(int j = 1;j<list_tab.size();j++) {
+				System.out.println(list_tab.get(i).getTaille());
+				float startTimeUnion = System.nanoTime();
+				Tableau temp = new Tableau().Union(list_tab.get(i), list_tab.get(j));
+				float endTimeUnion = System.nanoTime();
+				System.out.println("temps : "+((endTimeUnion-startTimeUnion)/1000000000.0));
+			}
 		}
 		System.out.println("Average execution time for tree: " + (tps_total_arbre/cpt));
 		System.out.println("Average execution time for table: " + (tps_total_tableau/cpt));

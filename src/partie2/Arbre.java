@@ -128,8 +128,9 @@ public class Arbre {
 		return new Arbre(listNode.get(0),listNode.size());
 	}
 	
-	public Arbre Union(Arbre a1, Arbre a2) {// Union en O(n + m)
+	public Arbre Union(Arbre a1, Arbre a2) {// Union en O(n + m).
 		ArrayList<Cle> la1 = ParcoursPrefixe(a1.getRacine());
+		
 		ArrayList<Cle> la2 = ParcoursPrefixe(a2.getRacine());
 		ArrayList<Cle> la = new ArrayList<Cle>(la1);
 		la.addAll(la2);
