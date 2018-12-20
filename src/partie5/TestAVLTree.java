@@ -4,7 +4,7 @@ package partie5;
 
 import partie1.Cle;
 
-public class TestBSTree {
+public class TestAVLTree {
 
 	public static void main(String[] args) {
 		Cle c0 = new Cle(0,0,0,0);

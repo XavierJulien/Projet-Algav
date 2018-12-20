@@ -45,7 +45,6 @@ public class MD5 {
 		//Découpage en blocs de 512 bits :
 		for(int i = 0;i<nb_block;i++) {
 			int index = i << 6;
-			System.out.println(index);
 			int[] buffer = new int[16];
 			for(int j = 0;j<64;j++,index++) {
 				if(index < messageLen) {
