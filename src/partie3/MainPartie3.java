@@ -18,9 +18,6 @@ public class MainPartie3 {
 			filenames.add("src/data/cles_alea/jeu_"+i+"_nb_cles_"+nbcles[j]+".txt");
 			}
 		}
-		for(int i = 0;i<filenames.size();i++) {
-			System.out.println(filenames.get(i));
-		}
 		float tps_total_arbre = 0;
 		int cpt = 0;
 		for(String s : filenames) {
@@ -32,7 +29,7 @@ public class MainPartie3 {
 			cpt++;
 			System.out.println(s+" : "+((endTimeFile - startTimeFile)/1000000000.0));
 		}
-		System.out.println("Average execution time for tree: " + (tps_total_arbre/cpt));
+		System.out.println("Average execution time for tree: " + ((tps_total_arbre)/100000000.0)/cpt);
 	}
 
 }

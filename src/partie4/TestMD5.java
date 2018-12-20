@@ -10,7 +10,7 @@ public class TestMD5{
 		MD5 m = new MD5();
 		//System.out.println(m.md5("The quick brown fox jumps over the lazy dog".getBytes()));
 		//Test a faire sur Shakespeare
-		Parser p = new Parser();
+		ParserMD5 p = new ParserMD5();
 		ArrayList<Cle> l = p.read("src/data/Shakespeare/1henryiv.txt");
 		System.out.println(l.size());
 	}

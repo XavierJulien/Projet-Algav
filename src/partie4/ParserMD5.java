@@ -9,9 +9,9 @@ import java.util.ArrayList;
 
 import partie1.Cle;
 
-public class Parser {
+public class ParserMD5 {
 	
-	public Parser() {
+	public ParserMD5() {
 	}
 	private MD5 m = new MD5();
 	public int nblignes = 0;
