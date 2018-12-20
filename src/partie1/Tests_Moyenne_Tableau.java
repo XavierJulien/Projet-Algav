@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import partie2.Tableau;
 
-public class MainTableau {
+public class Tests_Moyenne_Tableau {
 
 	public static void main(String[] args) {
 	
@@ -12,7 +12,7 @@ public class MainTableau {
 		Parser p = new Parser();
 		ArrayList<String> filenames = new ArrayList<String>();
 		for(int i = 1;i<6;i++) {
-			filenames.add("src/data/cles_alea/jeu_"+i+"_nb_cles_5000.txt");
+			filenames.add("src/data/cles_alea/jeu_"+i+"_nb_cles_50000.txt");
 		}
 		float tps_total_tableau = 0;
 		int cpt = 0;

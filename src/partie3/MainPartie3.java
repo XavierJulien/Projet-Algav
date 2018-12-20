@@ -22,19 +22,17 @@ public class MainPartie3 {
 			System.out.println(filenames.get(i));
 		}
 		float tps_total_arbre = 0;
-		float tps_total_tableau = 0;
 		int cpt = 0;
 		for(String s : filenames) {
 			ArrayList<Cle> l = p.read(s);
-			final long startTimeArbre = System.nanoTime();
+			final long startTimeFile = System.nanoTime();
 			fb.ConsIter(l);
-			final long endTimeArbre = System.nanoTime();
-			tps_total_arbre += endTimeArbre - startTimeArbre;
+			final long endTimeFile = System.nanoTime();
+			tps_total_arbre += endTimeFile - startTimeFile;
 			cpt++;
-			System.out.println(s+" : "+((endTimeArbre - startTimeArbre)/1000000000.0));
+			System.out.println(s+" : "+((endTimeFile - startTimeFile)/1000000000.0));
 		}
 		System.out.println("Average execution time for tree: " + (tps_total_arbre/cpt));
-		System.out.println("Average execution time for table: " + (tps_total_tableau/cpt));
 	}
 
 }

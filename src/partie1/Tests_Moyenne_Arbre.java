@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import partie2.Arbre;
 import partie2.Tableau;
 
-public class MainArbre {
+public class Tests_Moyenne_Arbre {
 
 	public static void main(String[] args) {
 	
