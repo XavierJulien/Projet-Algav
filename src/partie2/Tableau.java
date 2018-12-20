@@ -8,16 +8,16 @@ public class Tableau {
 
 	//variables 
 	public ArrayList<Cle> tab;
-	
+
 	//Constructeur
 	public Tableau(ArrayList<Cle> l) {
 		tab = l;
 	}
-	
+
 	public Tableau() {
 		tab = new ArrayList<Cle>();
 	}
-	
+
 	//getters,setters
 	public ArrayList<Cle> getTab(){return tab;}
 	public Cle getElem(int index) {return tab.get(index);}
@@ -38,31 +38,32 @@ public class Tableau {
 			return null;
 		}
 	}
-	
+
 	//Méthodes demandés
 	public void SupprMin() { //Supprimer le minimum en O(log n)
 		Cle min = tab.get(getTaille()-1);
 		tab.set(getTaille()-1,tab.get(0));
 		tab.set(0, min);
 		tab.remove(getTaille()-1);
-		redescente(tab.get(0));
-		}
-	
+		redescente(tab.get(0),0);
+	}
+
 	public void Ajout(Cle c) { //Ajout parmi les cles en O(log n)
 		tab.add(c);
 		int indexFils = tab.size()-1;
-		redescente(tab.get((indexFils-1)/2));	
+		redescente(tab.get((indexFils-1)/2),(indexFils-1)/2);	
 	}
-	
+
 	public Tableau ConsIter(ArrayList<Cle> list) { // Cons en O(n)
-		
+
 		tab = list;
 		for(int i = (tab.size()/2)-1;i>=0;i--) {
-			redescente(tab.get(i));
+			redescente(tab.get(i),i);
 		}
+
 		return new Tableau(tab);
 	}
-	
+
 	public Tableau Union(Tableau t1, Tableau t2) {// Union en O(n + m)
 		ArrayList<Cle> la1 = t1.tab;
 		ArrayList<Cle> la2 = t2.tab;
@@ -70,19 +71,23 @@ public class Tableau {
 		la.addAll(la2);
 		return ConsIter(la);
 	}
-	
-	public void redescente(Cle c) {//algorithme r�cursif qui �change les cl�s vers le bas tant qu'on as un fils plus petit que soit
-		int index = tab.indexOf(c);
+
+	public void redescente(Cle c,int index) {//algorithme r�cursif qui �change les cl�s vers le bas tant qu'on as un fils plus petit que soit
+		
 		int lastindex = tab.size()-1;
 		if(index*2+1 <= lastindex   && index*2+2 > lastindex) {
 			Cle current = c;
 			Cle cFilsG = tab.get(index*2+1);
 			if(cFilsG.inf(current)) {
 				Cle temp = current;
+				final long startTimeTableau = System.nanoTime();
 				tab.set( index, cFilsG);
+				final long endTimeTableau = System.nanoTime();
+				System.out.println((endTimeTableau - startTimeTableau)/1000000.0);
+				
 				tab.set(index*2+1,temp);
 			}
-		
+
 		}
 		if(index*2+1 < lastindex && index*2+2 <= lastindex) {
 			Cle current = c;
@@ -93,19 +98,21 @@ public class Tableau {
 					Cle temp = current;
 					tab.set(index, cFilsG);
 					tab.set(index*2+1,temp);
-						redescente(tab.get(index*2+1));
+					redescente(tab.get(index*2+1),index*2+1);
 				}
 			}else {
 				if(cFilsD.inf(current)) {
 					Cle temp = current;
 					tab.set(index, cFilsD);
 					tab.set(index*2+2,temp);
-						redescente(tab.get(index*2+1));
-						redescente(tab.get(index*2+2));
+					redescente(tab.get(index*2+1),index*2+1);
+					redescente(tab.get(index*2+2),index*2+2);
 				}
 			}
 		}
 	}
+	
+	
 	public String toString() {
 		String s= "";
 		for(int i =0 ;i<getTaille();i++) {

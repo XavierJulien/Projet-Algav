@@ -16,7 +16,7 @@ public class Tests_Moyenne_Arbre {
 		Parser p = new Parser();
 		ArrayList<String> filenames = new ArrayList<String>();
 		for(int i = 1;i<6;i++) {
-			filenames.add("src/data/cles_alea/jeu_"+i+"_nb_cles_50000.txt");
+			filenames.add("src/data/cles_alea/jeu_"+i+"_nb_cles_500.txt");
 		}
 		//float tps_total_arbre = 0;
 		float tps_total_union_arbres = 0;
@@ -46,7 +46,7 @@ public class Tests_Moyenne_Arbre {
 				final float endTimeUnion = System.nanoTime();
 				tps_total_union_arbres += endTimeUnion - startTimeUnion;
 				cpt++;
-				System.out.println("Union de "+s+" et "+s2+" : "+((endTimeUnion - startTimeUnion)/1000000.0));
+				System.out.println("Union de "+s+" et "+s2+" : "+((endTimeUnion - startTimeUnion)));
 			}
 		}
 		//System.out.println("Average execution time for tree: " + ((tps_total_arbre)/1000000.0)/cpt);

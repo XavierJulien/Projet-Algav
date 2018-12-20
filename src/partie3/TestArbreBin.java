@@ -32,8 +32,11 @@ public class TestArbreBin {
 		c.add(c9);
 		FileBinomiale fb = new FileBinomiale().ConsIter(c);
 		System.out.println(fb.toString());
-		FileBinomiale suppr = fb.SupprMin();
-		System.out.println(suppr.toString());
+		for(ArbreB a : fb.getArbres()) {
+			System.out.println(a.degre());
+		}
+		/*FileBinomiale suppr = fb.SupprMin();
+		System.out.println(suppr.toString());*/
 		/*ArbreB b0 = new ArbreB(c0);
 		ArbreB b1 = new ArbreB(c1);
 		ArbreB b2 = new ArbreB(c2);
