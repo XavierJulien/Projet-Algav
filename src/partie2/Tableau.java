@@ -80,11 +80,7 @@ public class Tableau {
 			Cle cFilsG = tab.get(index*2+1);
 			if(cFilsG.inf(current)) {
 				Cle temp = current;
-				final long startTimeTableau = System.nanoTime();
 				tab.set( index, cFilsG);
-				final long endTimeTableau = System.nanoTime();
-				System.out.println((endTimeTableau - startTimeTableau)/1000000.0);
-				
 				tab.set(index*2+1,temp);
 			}
 

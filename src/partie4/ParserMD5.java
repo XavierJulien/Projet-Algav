@@ -15,17 +15,35 @@ public class ParserMD5 {
 	}
 	private MD5 m = new MD5();
 	public int nblignes = 0;
-	public ArrayList<Cle> read(String filename) {
-		ArrayList<Cle> l = new ArrayList<Cle>();
+	public ArrayList<String> readMD5(String filename) {
+		ArrayList<String> l = new ArrayList<>();
 		try {
 			FileReader fr = new FileReader(new File(filename));
 			BufferedReader br = new BufferedReader(fr);
 			String line;
 			while ((line=br.readLine()) != null) {
-				System.out.println(line);
 				String line_key = m.md5(line.getBytes());
-				Cle c = decoder(line_key);
-				l.add(c);
+				l.add(line_key);
+			}
+			br.close();
+			fr.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return l;
+	}
+	
+	public ArrayList<String> read(String filename) {
+		ArrayList<String> l = new ArrayList<>();
+		try {
+			FileReader fr = new FileReader(new File(filename));
+			BufferedReader br = new BufferedReader(fr);
+			String line;
+			while ((line=br.readLine()) != null) {
+				l.add(line);
 			}
 			br.close();
 			fr.close();

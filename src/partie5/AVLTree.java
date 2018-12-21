@@ -43,7 +43,8 @@ public class AVLTree {
 		if(a == null) return 0;
 		return a.getHeight();
 	}
-	public AVLTree ajout(AVLTree a,Cle k) throws CleExistanteException {
+	public AVLTree ajout(AVLTree a,Cle k) {
+		//System.out.println(a.getC());
 		if(a.getC().inf(k)) {
 			if(a.getfilsD() != null) {
 				a.setfilsD(ajout(a.getfilsD(),k));
@@ -63,20 +64,38 @@ public class AVLTree {
 					a.setfilsG(temp);
 				}
 			}else {
-				throw new CleExistanteException("Cle Déja existante");
+				return a;
 			}
 		}
-		while((height(a.getfilsG()) - height(a.getfilsD()) >1)
-				||(height(a.getfilsD()) - height(a.getfilsG()) >1)) {
-			if((height(a.getfilsG()) - height(a.getfilsD())) > 1) {
-				a = rotationDroite(a);
-
+		if(((height(a.getfilsD()) - height(a.getfilsG())) == 2)||((height(a.getfilsD()) - height(a.getfilsG())) == -2)) {
+			if((height(a.getfilsD()) - height(a.getfilsG())) == 2) {
+				AVLTree filsD = a.getfilsD();
+				if((height(filsD.getfilsD()) - height(filsD.getfilsG())) == 1) {
+					a = rotationGauche(a);
+				}else {
+					a = rotationDroiteGauche(a);
+				}
 			}
-			if((height(a.getfilsD()) - height(a.getfilsG())) > 1) {
-				a = rotationGauche(a);
+			if((height(a.getfilsD()) - height(a.getfilsG())) == -2) {
+				AVLTree filsD = a.getfilsG();
+				if((height(filsD.getfilsD()) - height(filsD.getfilsG())) == -1) {
+					a = rotationDroite(a);
+				}else {
+					a = rotationGaucheDroite(a);
+				}
 			}
 		}
 		return a;
+	}
+
+	private AVLTree rotationGaucheDroite(AVLTree a) {
+		a.setfilsG(a.getfilsG().rotationGauche(a.getfilsG()));
+		return rotationDroite(a);
+	}
+
+	private AVLTree rotationDroiteGauche(AVLTree a) {
+		a.setfilsD(a.getfilsD().rotationDroite(a.getfilsD()));
+		return rotationGauche(a);
 	}
 
 	private AVLTree rotationGauche(AVLTree a) {
@@ -115,11 +134,8 @@ public class AVLTree {
 	public boolean recherche(AVLTree b, Cle k) {
 		if(b==null) return false;
 		if (b.getC().equals(k)) {
-			System.out.println("trouvé ! ");
 			return true;
 		}else {
-			System.out.println(b.getC().toString());
-			System.out.println(k.toString());
 			if(b.getC().inf(k)) {
 				System.out.println(" je vais voir mon filsD");
 				return recherche(b.getfilsD(), k);
